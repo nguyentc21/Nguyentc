@@ -12,57 +12,71 @@ import entity.Room;
  * @author nguyentc
  */
 public class RoomDAO implements RoomBus{
-    Room room[]=new Room[10] ;
-    int count=0;
+    int max=10;
+    int index=0;
+    public Room room[]=new Room[max] ;
     
     public RoomDAO(){
-        for(int i=0;i<10;i++){
+        for(int i=0; i<max; i++){
             room[i]=new Room();
         }
     }
     
     @Override
     public boolean create(Room r) {
-        if(count>=10){
+        if(index>9){
             return false;
         }else{
-            room[count]=r;
-            count++;
-            return true;
+            room[index]=r;
+            index++;
+        return true;
         }
     }
 
     @Override
     public boolean update(String code) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(readByCode(code)==-1){
+            return false;
+        }else{
+            Room r=new Room();
+            for(int i=(readByCode(code)) ; i<(index-1) ; i++){
+                r=room[i];
+                room[i]=room[i+1];
+                room[i+1]=r;
+            }
+            room[(index--)-1].setStatus(false);
+            return true;
+        }
     }
 
     @Override
     public int readByCode(String code) {
-        int index;
-        for(int i=0;i<count;i++){
+        for(int i=0;i<index;i++){
             if(room[i].getCode().equals(code)){
-                index=i;
-                return index;
+                return i;
             }
         }
         return -1;
-        
     }
 
     @Override
     public int count() {
-        return -1;
+        
+        return max-index;
     }
 
     @Override
     public int total() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int total=0;
+        for(int i=0;i<index;i++){
+            total+=room[i].getPrice();
+        }
+        return total;
     }
 
     @Override
     public void display(boolean status) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
     }
     
 }
