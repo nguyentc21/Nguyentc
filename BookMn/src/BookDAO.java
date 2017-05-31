@@ -9,13 +9,13 @@
  * @author nguyentc
  */
 public class BookDAO {
-    int max;
+    int max=10;
     int len;
     Book book[]=new Book[max];
     
     public BookDAO(){
         len=0;
-        for(int i=0; i<(max=10); i++){
+        for(int i=0; i<max; i++){
             book[i]=new Book();
         }
     }

@@ -1,3 +1,6 @@
+
+import java.io.Serializable;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -8,7 +11,7 @@
  *
  * @author nguyentc
  */
-public class Book extends Magezine{
+public class Book extends Magezine implements Serializable{
     private int quanty;
     private int price;
     
@@ -41,4 +44,9 @@ public class Book extends Magezine{
         this.price = price;
     }
     
+    
+    @Override
+    public String toString(){
+        return "Code: "+this.getCode()+"\tName: "+this.getName()+"\tPrice: "+price+"\tQuanty: "+quanty;
+    }
 }
