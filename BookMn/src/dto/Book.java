@@ -1,3 +1,5 @@
+package dto;
+
 
 import java.io.Serializable;
 
@@ -47,6 +49,6 @@ public class Book extends Magezine implements Serializable{
     
     @Override
     public String toString(){
-        return "Code: "+this.getCode()+"\tName: "+this.getName()+"\tPrice: "+price+"\tQuanty: "+quanty;
+        return "Code: "+this.getCode()+"\t\tName: "+this.getName()+"\t\tPrice: "+price+"\t\tQuanty: "+quanty;
     }
 }
