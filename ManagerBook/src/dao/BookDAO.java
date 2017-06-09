@@ -29,7 +29,7 @@ public class BookDAO implements BookUtil{
                     return false;
                 }
             }*/
-            book[n]=b;
+            book[n]=new Book(b.getCode(), b.getName(), b.getQuantity, b.getPrice());
             n++;
             return true;
         }else{
@@ -50,7 +50,7 @@ public class BookDAO implements BookUtil{
 
     @Override
     public float getCost(String sName) {
-        int total=0;
+        float total=0;
         for (int i = 0; i < n; i++) {
             /*if(book[i].getName().substring(0, (sName.length()-1)).equals(sName)){
                 total+=(book[i].getQuantity()*book[i].getPrice());
