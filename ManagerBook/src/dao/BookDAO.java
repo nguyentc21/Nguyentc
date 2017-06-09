@@ -23,7 +23,7 @@ public class BookDAO implements BookUtil{
 
     @Override
     public boolean add(Book b) {
-        if(n>50){
+        if(n<max){
             /*for (int i = 0; i < n; i++) {
                 if(b.getCode()==book[i].getCode()){
                     return false;
