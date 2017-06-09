@@ -77,8 +77,8 @@ public class BookDAO implements BookUtil {
         int max = 0;
         int indexMQ = 0;
         for (int i = 0; i < n; i++) {
-            if (max < book[n].getQuantity()) {
-                max = book[n].getQuantity();
+            if (max < book[i].getQuantity()) {
+                max = book[i].getQuantity();
                 indexMQ = i;
             }
         }
