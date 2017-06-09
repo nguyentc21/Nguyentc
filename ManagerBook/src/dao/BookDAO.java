@@ -12,36 +12,39 @@ import entity.Book;
  *
  * @author nguye
  */
-public class BookDAO implements BookUtil{
+public class BookDAO implements BookUtil {
+
     int n;
-    int max=50;
-    Book[] book= new Book[max];
-    
-    public BookDAO(){
-        n=0;
+    int max = 50;
+    Book[] book = new Book[max];
+
+    public BookDAO() {
+        n = 0;
+        for (int i = 0; i < 10; i++) {
+            book[i] = new Book();
+        }
     }
 
     @Override
     public boolean add(Book b) {
-        if(n<max){
+        if (n < max) {
             /*for (int i = 0; i < n; i++) {
                 if(b.getCode()==book[i].getCode()){
                     return false;
                 }
             }*/
-            book[n]=new Book(b.getCode(), b.getName(), b.getQuantity, b.getPrice());
+            book[n] = b;
             n++;
             return true;
-        }else{
+        } else {
             return false;
         }
     }
-    
 
     @Override
     public int indexOf(int code) {
         for (int i = 0; i < n; i++) {
-            if(code==book[i].getCode()){
+            if (code == book[i].getCode()) {
                 return i;
             }
         }
@@ -50,13 +53,13 @@ public class BookDAO implements BookUtil{
 
     @Override
     public float getCost(String sName) {
-        float total=0;
+        float total = 0;
         for (int i = 0; i < n; i++) {
             /*if(book[i].getName().substring(0, (sName.length()-1)).equals(sName)){
                 total+=(book[i].getQuantity()*book[i].getPrice());
             }*/
-            if(book[i].getName().indexOf(sName)!= -1){
-                total+=(book[i].getQuantity()*book[i].getPrice());
+            if (book[i].getName().indexOf(sName) != -1) {
+                total += (book[i].getQuantity() * book[i].getPrice());
             }
         }
         return total;
@@ -71,12 +74,12 @@ public class BookDAO implements BookUtil{
 
     @Override
     public void readByMaxQty() {
-        max=0;
-        int indexMQ=0;
+        int max = 0;
+        int indexMQ = 0;
         for (int i = 0; i < n; i++) {
-            if(max<book[n].getQuantity()){
-                max=book[n].getQuantity();
-                indexMQ=i;
+            if (max < book[n].getQuantity()) {
+                max = book[n].getQuantity();
+                indexMQ = i;
             }
         }
         System.out.println(book[indexMQ].toString());
