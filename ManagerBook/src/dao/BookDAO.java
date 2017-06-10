@@ -20,9 +20,6 @@ public class BookDAO implements BookUtil {
 
     public BookDAO() {
         n = 0;
-        for (int i = 0; i < 10; i++) {
-            book[i] = new Book();
-        }
     }
 
     @Override
