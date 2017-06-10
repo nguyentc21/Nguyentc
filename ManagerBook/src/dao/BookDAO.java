@@ -58,7 +58,7 @@ public class BookDAO implements BookUtil {
             /*if(book[i].getName().substring(0, (sName.length()-1)).equals(sName)){
                 total+=(book[i].getQuantity()*book[i].getPrice());
             }*/
-            if (book[i].getName().indexOf(sName) != -1) {
+            if (book[i].getName().indexOf(sName) == 0) {
                 total += (book[i].getQuantity() * book[i].getPrice());
             }
         }
