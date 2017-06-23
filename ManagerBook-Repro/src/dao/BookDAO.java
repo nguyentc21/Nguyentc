@@ -16,11 +16,10 @@ import java.util.List;
  */
 public class BookDAO implements BookUtil {
 
-    int n;
-    List<Book> book = new ArrayList<>();
+    List<Book> book;
 
     public BookDAO() {
-        n = 0;
+        book = new ArrayList<>();
     }
 
     @Override
@@ -31,16 +30,17 @@ public class BookDAO implements BookUtil {
             }
         }
         book.add(b);
-        n++;
         return true;
     }
 
     @Override
     public int indexOf(int code) {
-        for (int i = 0; i < n; i++) {
-            if (code == book.get(i).getCode()) {
-                return i;
+        int index = 0;
+        for (Book bo : book) {
+            if (code == bo.getCode()) {
+                return index;
             }
+            index++;
         }
         return -1;
     }
@@ -69,12 +69,13 @@ public class BookDAO implements BookUtil {
     @Override
     public void readByMaxQty() {
         int max = 0;
-        int indexMQ = 0;
-        for (int i=0; i<n;i++) {
-            if (max < book.get(i).getQuantity()) {
-                max = book.get(i).getQuantity();
-                indexMQ = i;
+        int indexMQ = 0, count = 0;
+        for (Book bo : book) {
+            if (max < bo.getQuantity()) {
+                max = bo.getQuantity();
+                indexMQ = count;
             }
+            count++;
         }
         System.out.println(book.get(indexMQ).toString());
     }
