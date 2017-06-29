@@ -156,9 +156,7 @@ public class Test {
                                                 break;
                                             }
                                         }
-                                        if (empUp.getCode() == 0) {
-                                            break;
-                                        } else {
+                                        if (empUp.getCode() != 0) {
                                             System.out.println("Input new name:");
                                             empUp.setName(br.readLine());
                                             while (true) {
@@ -183,13 +181,12 @@ public class Test {
                                             }
                                             if (empDAO.updateEmp(empUp) == null) {
                                                 System.out.println("Error! Update failed!");
-                                                break;
                                             } else {
                                                 System.out.println(empUp.toString()
                                                         + "\nUpdate success!");
-                                                break;
                                             }
                                         }
+                                        break;
                                     case 4:
                                         System.out.println("DELETE EMPLOYEE."
                                                 + "\n=============");
@@ -213,7 +210,7 @@ public class Test {
                                                     break;
                                                 } else if (choiceYN.equals("n") || choiceYN.equals("N")) {
                                                     break;
-                                                } else {
+                                                } else { 
                                                     System.out.println("Input \"Y\" or \"N\" to delete or skip:");
                                                 }
                                             }
