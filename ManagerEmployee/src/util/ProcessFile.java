@@ -24,15 +24,15 @@ import java.util.logging.Logger;
  */
 public class ProcessFile {
 
-    public boolean saveAcc(LinkedList<Account> ac) {
+    public <T> boolean save(LinkedList<T> val, String s) {
         FileWriter fwriter = null;
         BufferedWriter writer = null;
         try {
-            fwriter = new FileWriter(System.getProperty("user.dir") + "/Account.txt");
+            fwriter = new FileWriter(System.getProperty("user.dir") + "/" + s);
             writer = new BufferedWriter(fwriter);
 
-            for (Account a : ac) {
-                writer.write(a.toString());
+            for (T t : val) {
+                writer.write(t.toString());
                 writer.newLine();
             }
 
@@ -56,38 +56,37 @@ public class ProcessFile {
         return false;
     }
 
-    public boolean saveEmp(LinkedList<Employee> e) {
-        FileWriter fwriter = null;
-        BufferedWriter writer = null;
-        try {
-            fwriter = new FileWriter(System.getProperty("user.dir") + "/Employee.txt");
-            writer = new BufferedWriter(fwriter);
-
-            for (Employee em : e) {
-                writer.write(em.toString());
-                writer.newLine();
-            }
-
-            return true;
-        } catch (FileNotFoundException ex) {
-            System.out.println("The requested file cannot be found.");
-        } catch (IOException ex) {
-            System.out.println("An error occurred while writing to the file.");
-        } finally {
-            try {
-                if (writer != null) {
-                    writer.close();
-                }
-                if (fwriter != null) {
-                    fwriter.close();
-                }
-            } catch (IOException ex) {
-                Logger.getLogger(ProcessFile.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        return false;
-    }
-
+//    public boolean saveEmp(LinkedList<Employee> e) {
+//        FileWriter fwriter = null;
+//        BufferedWriter writer = null;
+//        try {
+//            fwriter = new FileWriter(System.getProperty("user.dir") + "/Employee.txt");
+//            writer = new BufferedWriter(fwriter);
+//
+//            for (Employee em : e) {
+//                writer.write(em.toString());
+//                writer.newLine();
+//            }
+//
+//            return true;
+//        } catch (FileNotFoundException ex) {
+//            System.out.println("The requested file cannot be found.");
+//        } catch (IOException ex) {
+//            System.out.println("An error occurred while writing to the file.");
+//        } finally {
+//            try {
+//                if (writer != null) {
+//                    writer.close();
+//                }
+//                if (fwriter != null) {
+//                    fwriter.close();
+//                }
+//            } catch (IOException ex) {
+//                Logger.getLogger(ProcessFile.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//        }
+//        return false;
+//    }
     public LinkedList<String> load(String s) {
         LinkedList<String> loadFile = new LinkedList<>();
         FileReader freader = null;
