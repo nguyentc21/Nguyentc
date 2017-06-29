@@ -183,9 +183,11 @@ public class Test {
                                             }
                                             if (empDAO.updateEmp(empUp) == null) {
                                                 System.out.println("Error! Update failed!");
+                                                break;
                                             } else {
                                                 System.out.println(empUp.toString()
-                                                        + "Update success!");
+                                                        + "\nUpdate success!");
+                                                break;
                                             }
                                         }
                                     case 4:
@@ -211,6 +213,8 @@ public class Test {
                                                     break;
                                                 } else if (choiceYN.equals("n") || choiceYN.equals("N")) {
                                                     break;
+                                                } else {
+                                                    System.out.println("Input \"Y\" or \"N\" to delete or skip:");
                                                 }
                                             }
                                         }

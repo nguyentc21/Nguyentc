@@ -72,6 +72,7 @@ public class EmployeeDAO {
     public Employee updateEmp(Employee e) {
         int index = indexOf(e.getCode());
         if (index >= 0) {
+            employee.remove(index);
             employee.add(index, e);
             return employee.get(index);
         } else {
