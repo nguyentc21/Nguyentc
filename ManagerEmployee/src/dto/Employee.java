@@ -67,6 +67,12 @@ public class Employee implements Serializable, Comparable<Employee>{
 
     @Override
     public int compareTo(Employee o) {
-        return this.name.compareTo(o.name);
+        int valueName = this.name.compareTo(o.name);
+        int valueCode = this.code - o.code;
+        if (valueName == 0) {
+            return valueCode;
+        } else {
+            return valueName;
+        }
     }
 }

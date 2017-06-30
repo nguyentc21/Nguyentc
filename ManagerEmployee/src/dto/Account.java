@@ -62,11 +62,7 @@ public class Account implements Serializable, Comparable<Account> {
         int valueUser = this.userName.compareTo(o.userName);
         int valuePass = this.password.compareTo(o.password);
         if (valueUser == 0) {
-            if (valuePass == 0) {
-                return 0;
-            } else {
-                return valuePass;
-            }
+            return valuePass;
         } else {
             return valueUser;
         }
