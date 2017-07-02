@@ -5,9 +5,11 @@
  */
 package dao;
 
+import dto.Account;
 import dto.Employee;
+import java.util.ArrayList;
 import java.util.Collections;
-import java.util.LinkedList;
+import java.util.List;
 import util.ProcessFile;
 
 /**
@@ -16,23 +18,25 @@ import util.ProcessFile;
  */
 public class EmployeeDAO {
 
-    LinkedList<Employee> employee = null;
+    List<Employee> employee = null;
+    Account account;
 
-    public EmployeeDAO() {
+    public EmployeeDAO(Account a) {
+        account = a;
         ProcessFile pro = new ProcessFile();
-        LinkedList<String> list = pro.load("Employee.txt");
+        List<String> list = pro.load("Employee.txt");
         int len = list.size() / 4;
-        employee = new LinkedList<>();
+        employee = new ArrayList<>();
 
         for (int i = 0; i < len; i++) {
-            int j=i*4;
+            int j = i * 4;
             Employee em = new Employee();
             try {
                 em.setCode(Integer.parseInt(list.get(j)));
-                em.setName(list.get(j+1));
-                em.setAge(Integer.parseInt(list.get(j+2)));
-                em.setSalary(Float.parseFloat(list.get(j+3)));
-                employee.addLast(em);
+                em.setName(list.get(j + 1));
+                em.setAge(Integer.parseInt(list.get(j + 2)));
+                em.setSalary(Float.parseFloat(list.get(j + 3)));
+                employee.add(em);
             } catch (NumberFormatException ex) {
                 System.out.println(ex.getMessage());
             }
@@ -40,11 +44,15 @@ public class EmployeeDAO {
     }
 
     public Employee addEmp(Employee e) {
-        if (indexOf(e.getCode()) >= 0) {
+        if (account.getRollName() != 1) {
             return null;
         } else {
-            employee.addLast(e);
-            return employee.getLast();
+            if (indexOf(e.getCode()) >= 0) {
+                return null;
+            } else {
+                employee.add(e);
+                return employee.get(employee.size() - 1);
+            }
         }
     }
 
@@ -52,8 +60,8 @@ public class EmployeeDAO {
         Collections.sort(employee);
     }
 
-    public LinkedList<Employee> readListEmp() {
-        if (employee.size() == 0) {
+    public List<Employee> readListEmp() {
+        if (employee.isEmpty()) {
             return null;
         } else {
             sortByName();
@@ -70,28 +78,36 @@ public class EmployeeDAO {
     }
 
     public Employee updateEmp(Employee e) {
-        int index = indexOf(e.getCode());
-        if (index >= 0) {
-            employee.remove(index);
-            employee.add(index, e);
-            return employee.get(index);
-        } else {
+        if (account.getRollName() != 1) {
             return null;
+        } else {
+            int index = indexOf(e.getCode());
+            if (index >= 0) {
+                employee.remove(index);
+                employee.add(index, e);
+                return employee.get(index);
+            } else {
+                return null;
+            }
         }
     }
 
     public boolean deleteEmp(int code) {
-        int index = indexOf(code);
-        if (index >= 0) {
-            employee.remove(index);
-            return true;
-        } else {
+        if (account.getRollName() != 1) {
             return false;
+        } else {
+            int index = indexOf(code);
+            if (index >= 0) {
+                employee.remove(index);
+                return true;
+            } else {
+                return false;
+            }
         }
     }
 
     public int indexOf(int code) {
-        if (employee.size() == 0) {
+        if (employee.isEmpty()) {
             return -1;
         } else {
             int index = 0;

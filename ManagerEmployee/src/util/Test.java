@@ -48,7 +48,7 @@ public class Test {
             System.out.println("Input your choice: ");
             InputStreamReader isr = null;
             BufferedReader br = null;
-            int choiceAcc =0;
+            int choiceAcc = 0;
             Test test = new Test();
             try {
                 isr = new InputStreamReader(System.in);
@@ -71,15 +71,18 @@ public class Test {
                         } catch (IOException ex) {
                             System.out.println(ex.getMessage());
                         }
-                        if (accDAO.loginAcc(acc) == null) {
+                        Account accLogin = accDAO.loginAcc(acc);
+                        if (accLogin == null) {
                             System.out.println("Your Username or Password was entered incorrectly.");
                         } else {
-                            System.out.println(accDAO.loginAcc(acc).toStringNonPass());
                             System.out.println("LOGIN SUCCESS!"
+                                    + "\nHi " + accLogin.getUserName()
                                     + "\n===================");
-                            EmployeeDAO empDAO = new EmployeeDAO();
+
+                            EmployeeDAO empDAO = new EmployeeDAO(accLogin);
                             EmployeeMenu:
                             while (true) {
+                                System.out.println("================================");
                                 System.out.println("1-Add a employee."
                                         + "\n2-View list employees."
                                         + "\n3-Update employee information."
@@ -93,137 +96,154 @@ public class Test {
                                     case 1:
                                         System.out.println("ADD A EMPLOYEE."
                                                 + "\n===============");
-                                        Employee emp = new Employee();
-                                        while (true) {
-                                            System.out.println("Input code:");
-                                            Integer code = test.checkInt(br.readLine());
-                                            if (code == null || code == 0) {
-                                                System.out.println("Error! The entered code is not validated");
-                                            } else {
-                                                emp.setCode(code);
-                                                break;
+                                        if (accLogin.getRollName() == 1) {
+                                            Employee emp = new Employee();
+                                            while (true) {
+                                                System.out.println("Input code:");
+                                                Integer code = test.checkInt(br.readLine());
+                                                if (code == null || code == 0) {
+                                                    System.out.println("Error! The entered code is not validated");
+                                                } else {
+                                                    emp.setCode(code);
+                                                    break;
+                                                }
                                             }
-                                        }
-                                        System.out.println("Input name:");
-                                        emp.setName(br.readLine());
-                                        while (true) {
-                                            System.out.println("Input age:");
-                                            Integer age = test.checkInt(br.readLine());
-                                            if (age == null || age <= 0) {
-                                                System.out.println("Error! The entered age is not validated");
-                                            } else {
-                                                emp.setAge(age);
-                                                break;
+                                            System.out.println("Input name:");
+                                            emp.setName(br.readLine());
+                                            while (true) {
+                                                System.out.println("Input age:");
+                                                Integer age = test.checkInt(br.readLine());
+                                                if (age == null || age <= 0) {
+                                                    System.out.println("Error! The entered age is not validated");
+                                                } else {
+                                                    emp.setAge(age);
+                                                    break;
+                                                }
                                             }
-                                        }
-                                        while (true) {
-                                            System.out.println("Input salary:");
-                                            Float salary = test.checkFloat(br.readLine());
-                                            if (salary == null || salary <= 0) {
-                                                System.out.println("Error! The entered salary is not validated");
-                                            } else {
-                                                emp.setSalary(salary);
-                                                break;
+                                            while (true) {
+                                                System.out.println("Input salary:");
+                                                Float salary = test.checkFloat(br.readLine());
+                                                if (salary == null || salary <= 0) {
+                                                    System.out.println("Error! The entered salary is not validated");
+                                                } else {
+                                                    emp.setSalary(salary);
+                                                    break;
+                                                }
                                             }
-                                        }
-                                        if (empDAO.addEmp(emp) == null) {
-                                            System.out.println("Error! The entered code is already exist!");
+                                            if (empDAO.addEmp(emp) == null) {
+                                                System.out.println("Error! Can not add this employee!");
+                                            } else {
+                                                System.out.println(emp.toString()
+                                                        + "\nAdd employee success!");
+                                            }
                                         } else {
-                                            System.out.println(emp.toString()
-                                                    + "\nAdd employee success!");
+                                            System.out.println("You don't have permission to use this function");
                                         }
                                         break;
                                     case 2:
                                         System.out.println("LIST EMPLOYEES."
                                                 + "\n===============");
-                                        for(Employee em: empDAO.readListEmp()){
+                                        for (Employee em : empDAO.readListEmp()) {
                                             System.out.println(em.toString());
                                         }
                                         break;
                                     case 3:
-                                        System.out.println("UPDATE EMPLOYEE INFORMATION.");
-                                        Employee empUp = new Employee();
-                                        while (true) {
-                                            System.out.println("Input code:");
-                                            Integer code = test.checkInt(br.readLine());
-                                            if (code == null) {
-                                                System.out.println("Error! The entered code is not validated");
-                                            } else if (empDAO.indexOf(code) < 0) {
-                                                System.out.println("Did not find this code in list employees!");
-                                                break;
-                                            } else {
-                                                empUp.setCode(code);
-                                                break;
-                                            }
-                                        }
-                                        if (empUp.getCode() != 0) {
-                                            System.out.println("Input new name:");
-                                            empUp.setName(br.readLine());
+                                        System.out.println("UPDATE EMPLOYEE INFORMATION."
+                                                + "\n============================");
+                                        if (accLogin.getRollName() == 1) {
+                                            Employee empUp = new Employee();
                                             while (true) {
-                                                System.out.println("Input new age:");
-                                                Integer age = test.checkInt(br.readLine());
-                                                if (age == null || age <= 0) {
-                                                    System.out.println("Error! The entered age is not validated");
+                                                System.out.println("Input code:");
+                                                Integer code = test.checkInt(br.readLine());
+                                                if (code == null) {
+                                                    System.out.println("Error! The entered code is not validated");
+                                                } else if (empDAO.indexOf(code) < 0) {
+                                                    System.out.println("Did not find this code in list employees!");
+                                                    break;
                                                 } else {
-                                                    empUp.setAge(age);
+                                                    empUp.setCode(code);
                                                     break;
                                                 }
                                             }
-                                            while (true) {
-                                                System.out.println("Input new salary:");
-                                                Float salary = test.checkFloat(br.readLine());
-                                                if (salary == null || salary <= 0) {
-                                                    System.out.println("Error! The entered salary is not validated");
+                                            if (empUp.getCode() != 0) {
+                                                System.out.println("Input new name:");
+                                                empUp.setName(br.readLine());
+                                                while (true) {
+                                                    System.out.println("Input new age:");
+                                                    Integer age = test.checkInt(br.readLine());
+                                                    if (age == null || age <= 0) {
+                                                        System.out.println("Error! The entered age is not validated");
+                                                    } else {
+                                                        empUp.setAge(age);
+                                                        break;
+                                                    }
+                                                }
+                                                while (true) {
+                                                    System.out.println("Input new salary:");
+                                                    Float salary = test.checkFloat(br.readLine());
+                                                    if (salary == null || salary <= 0) {
+                                                        System.out.println("Error! The entered salary is not validated");
+                                                    } else {
+                                                        empUp.setSalary(salary);
+                                                        break;
+                                                    }
+                                                }
+                                                if (empDAO.updateEmp(empUp) == null) {
+                                                    System.out.println("Error! Update failed!");
                                                 } else {
-                                                    empUp.setSalary(salary);
-                                                    break;
+                                                    System.out.println(empUp.toString()
+                                                            + "\nUpdate success!");
                                                 }
                                             }
-                                            if (empDAO.updateEmp(empUp) == null) {
-                                                System.out.println("Error! Update failed!");
-                                            } else {
-                                                System.out.println(empUp.toString()
-                                                        + "\nUpdate success!");
-                                            }
+                                        } else {
+                                            System.out.println("You don't have permission to use this function");
                                         }
                                         break;
                                     case 4:
                                         System.out.println("DELETE EMPLOYEE."
                                                 + "\n=============");
-                                        System.out.println("Input the code of employee to delete:");
-                                        Integer code = test.checkInt(br.readLine());
-                                        if (code == null || code == 0) {
-                                            System.out.println("Error! The entered code is not validated");
-                                        } else if (empDAO.indexOf(code) < 0) {
-                                            System.out.println("Did not find this code in list employees!");
-                                        } else {
-                                            System.out.println(empDAO.getEmp(empDAO.indexOf(code)));
-                                            System.out.println("You want to delete this employee: (Y or N)");
-                                            while (true) {
-                                                String choiceYN = br.readLine();
-                                                if (choiceYN.equals("y") || choiceYN.equals("Y")) {
-                                                    if (empDAO.deleteEmp(code)) {
-                                                        System.out.println("Delete success!");
+                                        if (accLogin.getRollName() == 1) {
+                                            System.out.println("Input the code of employee to delete:");
+                                            Integer code = test.checkInt(br.readLine());
+                                            if (code == null || code == 0) {
+                                                System.out.println("Error! The entered code is not validated");
+                                            } else if (empDAO.indexOf(code) < 0) {
+                                                System.out.println("Did not find this code in list employees!");
+                                            } else {
+                                                System.out.println(empDAO.getEmp(empDAO.indexOf(code)));
+                                                System.out.println("You want to delete this employee: (Y or N)");
+                                                while (true) {
+                                                    String choiceYN = br.readLine();
+                                                    if (choiceYN.equals("y") || choiceYN.equals("Y")) {
+                                                        if (empDAO.deleteEmp(code)) {
+                                                            System.out.println("Delete success!");
+                                                        } else {
+                                                            System.out.println("Error! Delete failed!");
+                                                        }
+                                                        break;
+                                                    } else if (choiceYN.equals("n") || choiceYN.equals("N")) {
+                                                        break;
                                                     } else {
-                                                        System.out.println("Error! Delete failed!");
+                                                        System.out.println("Input \"Y\" or \"N\" to delete or skip:");
                                                     }
-                                                    break;
-                                                } else if (choiceYN.equals("n") || choiceYN.equals("N")) {
-                                                    break;
-                                                } else { 
-                                                    System.out.println("Input \"Y\" or \"N\" to delete or skip:");
                                                 }
                                             }
+                                        } else {
+                                            System.out.println("You don't have permission to use this function");
                                         }
                                         break;
                                     case 5:
                                         ProcessFile pro = new ProcessFile();
                                         System.out.println("SAVE TO FILE."
                                                 + "\n===============");
-                                        if (pro.save(empDAO.readListEmp(),"Employee.txt")) {
-                                            System.out.println("File saved!");
+                                        if (accLogin.getRollName() == 1) {
+                                            if (pro.save(empDAO.readListEmp(), "Employee.txt")) {
+                                                System.out.println("File saved!");
+                                            } else {
+                                                System.out.println("Error! Cannot save this file!");
+                                            }
                                         } else {
-                                            System.out.println("Error! Cannot save this file!");
+                                            System.out.println("You don't have permission to use this function");
                                         }
                                         break;
                                     case 6:
@@ -246,7 +266,7 @@ public class Test {
                 Logger.getLogger(Test.class.getName()).log(Level.SEVERE, null, ex);
             } catch (NumberFormatException ex) {
                 System.out.println(ex.getMessage());
-            } 
+            }
         }
     }
 }

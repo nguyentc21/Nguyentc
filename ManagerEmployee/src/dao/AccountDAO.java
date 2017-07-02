@@ -6,7 +6,8 @@
 package dao;
 
 import dto.Account;
-import java.util.LinkedList;
+import java.util.ArrayList;
+import java.util.List;
 import util.ProcessFile;
 
 /**
@@ -15,44 +16,55 @@ import util.ProcessFile;
  */
 public class AccountDAO {
 
-    LinkedList<Account> account = null;
+    List<Account> account = null;
 
     public AccountDAO() {
         ProcessFile pro = new ProcessFile();
-        LinkedList<String> list = pro.load("Account.txt");
-        int len = list.size() / 3;
-        account = new LinkedList<>();
+        List<String> list = pro.load("Account.txt");
+        int len = list.size() / 4;
+        account = new ArrayList<>();
         for (int i = 0; i < len; i++) {
-            int j = i*3;
-            Account acc = new Account();
-            acc.setUserName(list.get(j));
-            acc.setPassword(list.get(j+1));
-            acc.setDescription(list.get(j+2));
-            account.addLast(acc);
+            int j = i * 4;
+            try {
+                Account acc = new Account();
+                acc.setUserName(list.get(j));
+                acc.setPassword(list.get(j + 1));
+                acc.setDescription(list.get(j + 2));
+                acc.setRollName(Integer.parseInt(list.get(j + 3)));
+                account.add(acc);
+            } catch (NumberFormatException ex) {
+                System.out.println(ex.getMessage());
+            } 
         }
     }
-    public Account addAcc(Account ac){
+
+    public Account addAcc(Account ac) {
         return ac;
     }
-    public boolean readAll(){
+
+    public boolean readAll() {
         return false;
     }
-    public Account getAcc(int index){
-        if(index>=0 && index < account.size()){
+
+    public Account getAcc(int index) {
+        if (index >= 0 && index < account.size()) {
             return account.get(index);
-        }else{
+        } else {
             return null;
         }
     }
-    public Account updateAcc(Account ac){
+
+    public Account updateAcc(Account ac) {
         return ac;
     }
-    public boolean deleteAcc(){
+
+    public boolean deleteAcc() {
         return false;
     }
-    public Account loginAcc(Account ac){
-        for(Account a: account){
-            if(ac.compareTo(a)==0){
+
+    public Account loginAcc(Account ac) {
+        for (Account a : account) {
+            if (ac.compareTo(a) == 0) {
                 return a;
             }
         }
