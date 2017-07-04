@@ -17,6 +17,7 @@ public class Employee implements Serializable, Comparable<Employee>{
     private String name;
     private int age;
     private float salary;
+    private Account account;
 
     public Employee() {
     }
@@ -58,6 +59,14 @@ public class Employee implements Serializable, Comparable<Employee>{
 
     public void setSalary(float salary) {
         this.salary = salary;
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
     }
 
     @Override

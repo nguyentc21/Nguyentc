@@ -157,7 +157,7 @@ public class Test {
                                                 Integer code = test.checkInt(br.readLine());
                                                 if (code == null) {
                                                     System.out.println("Error! The entered code is not validated");
-                                                } else if (empDAO.indexOf(code) < 0) {
+                                                } else if (empDAO.getEmp(code)==null) {
                                                     System.out.println("Did not find this code in list employees!");
                                                     break;
                                                 } else {
@@ -207,10 +207,10 @@ public class Test {
                                             Integer code = test.checkInt(br.readLine());
                                             if (code == null || code == 0) {
                                                 System.out.println("Error! The entered code is not validated");
-                                            } else if (empDAO.indexOf(code) < 0) {
+                                            } else if (empDAO.getEmp(code) == null) {
                                                 System.out.println("Did not find this code in list employees!");
                                             } else {
-                                                System.out.println(empDAO.getEmp(empDAO.indexOf(code)));
+                                                System.out.println(empDAO.getEmp(code).toString());
                                                 System.out.println("You want to delete this employee: (Y or N)");
                                                 while (true) {
                                                     String choiceYN = br.readLine();
