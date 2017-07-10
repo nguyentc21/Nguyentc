@@ -96,7 +96,7 @@ public class Main {
                             System.out.println("VIEW"
                                     + "\n=========");
                             if (dao.view() == null) {
-                                System.out.println("Error!");
+                                System.out.println("Error!Can not found any employee!");
                             } else {
                                 for (EmployeeDto e : dao.view()) {
                                     System.out.println(e.toString());

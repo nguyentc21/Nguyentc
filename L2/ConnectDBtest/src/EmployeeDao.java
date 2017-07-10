@@ -28,7 +28,7 @@ public class EmployeeDao {
     final String SQLSELECT = "SELECT * FROM EMPLOYEE WHERE CODE = ?";
 
     public EmployeeDao() {
-        con = new DBConnect().getCon();
+        con = new DBConnectSQLsv().getCon();
     }
 
     public EmployeeDto add(EmployeeDto e) {
