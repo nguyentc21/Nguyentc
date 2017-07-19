@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE catalogue[
+    <!ELEMENT catalogue (book*)>
+    <!ELEMENT book (name, author, pages, price, tableOfContents)>
+    <!ELEMENT name (#PCDATA)>
+    <!ELEMENT author (#PCDATA)>
+    <!ELEMENT pages (#PCDATA)>
+    <!ELEMENT price (#PCDATA)>
+    <!ELEMENT tableOfContents (#PCDATA)>
+    <!ATTLIST price accompany (CD|DVD) "CD">
+]>
+
+<catalogue>
+    <book>
+        <name> Conan</name>
+        <author>nguyen</author>
+        <pages> 100 </pages>
+        <price accompany = "DVD"> 1000</price>
+        <tableOfContents>asjoifhoisd fosdihf
+            sdfhsdoifh
+        </tableOfContents>
+    </book>
+    <book>
+        <name> Conan tap 2</name>
+        <author>nguyen</author>
+        <pages> 100 </pages>
+        <price accompany = "DVD"> 1000</price>
+        <tableOfContents>asjoifhoisd fosdihf
+            sdfhsdoifh asd asdad
+        </tableOfContents>
+    </book>
+    
+</catalogue>
