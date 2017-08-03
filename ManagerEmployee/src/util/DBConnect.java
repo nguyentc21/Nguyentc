@@ -31,6 +31,7 @@ public class DBConnect {
             String user = br.readLine();
             String pass = br.readLine();
             
+            //Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             Class.forName("org.apache.derby.jdbc.ClientDriver");
             con = DriverManager.getConnection(url, user, pass);
             

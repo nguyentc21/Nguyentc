@@ -1,0 +1,3 @@
+jdbc:sqlserver://localhost\SQLEXPRESS:1433;databaseName=ManagerEmployee
+sa
+112233

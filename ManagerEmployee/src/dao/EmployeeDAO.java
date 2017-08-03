@@ -35,7 +35,7 @@ public class EmployeeDAO {
     final private String SQLGET = "SELECT CODE, NAME, AGE, SALARY FROM EMPLOYEE WHERE CODE = ?";
     Connection con = null;
 
-    public EmployeeDAO(Account a) {
+    public EmployeeDAO() {
 
 //        ProcessFile pro = new ProcessFile();
 //        List<String> list = pro.load("Employee.txt");
@@ -55,7 +55,7 @@ public class EmployeeDAO {
 //                System.out.println(ex.getMessage());
 //            }
 //        }
-        con = new DBConnect("DBConnect").getCon();
+        con = new DBConnect("DBConnectDerby").getCon();
     }
 
     public Employee addEmp(Employee e) {

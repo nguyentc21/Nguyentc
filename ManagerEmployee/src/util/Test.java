@@ -79,7 +79,7 @@ public class Test {
                                     + "\nHi " + accLogin.getUserName()
                                     + "\n===================");
 
-                            EmployeeDAO empDAO = new EmployeeDAO(accLogin);
+                            EmployeeDAO empDAO = new EmployeeDAO();
                             EmployeeMenu:
                             while (true) {
                                 System.out.println("================================");

@@ -47,7 +47,7 @@ public class AccountDAO {
 //                System.out.println(ex.getMessage());
 //            } 
 //        }
-        con = new DBConnect("DBConnect").getCon();
+        con = new DBConnect("DBConnectDerby").getCon();
     }
 
     public Account addAcc(Account ac) {
